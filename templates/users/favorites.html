@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    html,body {
+        background-color: rgb(228, 238, 253) !important;
+        
+    }
+</style>
+<div class="container py-5">
+        <div class="col-lg-12">
+            <h3>My Favorites</h3>
+            <div class="card">
+                <div class="card-body">
+                    <div class="container" style="margin-top: 20px; margin-bottom: 20px; font-family: cursive; ">
+                       <div class="col-md-12">
+                          <div class="row">
+                               {% for favorite_post in favorite_posts %}
+                               {% if favorite_post.image %}
+                                   <a href="{% url 'postdetails' favorite_post.id %}"> <div class="card" style="width: 18rem; margin: 5px;">
+                                   <div class="card-img-top" style="background: url('{{favorite_post.image.url}}') center / cover no-repeat; height: 200px;"></div>
+                                   </div></a>
+                                {% endif %}
+                                {% endfor %}
+                                {% if not favorite_posts %}
+                                <div class=" col text-center" >  No favorites yet... </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>  
+                </div>
+            </div>
+        </div>
+</div>
+
+    
+  
+{% endblock %}

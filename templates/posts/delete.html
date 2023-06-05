@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+html, body { background: rgb(228, 238, 253) !important;}
+</style>
+
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="card p-5" style="margin-top: 100px; margin-bottom: 100px;">
+            <form method="POST" >
+                {% csrf_token %}
+                <p>Delete Post?</p>
+                <a class="btn btn-danger" href="{% url 'postdetails' post.id %}" role="button">No</a>
+                <input class="btn btn-primary" type="submit" value="Yes">
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+

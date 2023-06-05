@@ -1,0 +1,283 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+  html,body {
+    background: rgb(228, 238, 253) !important;
+  }
+  .fa-heart{
+    color:rgb(226, 62, 83);
+  }
+  .fa-star{
+    color:rgb(240, 178, 6);
+  }
+  textarea{
+     height: 15vh;
+     border-color:rgb(211, 211, 211);
+  }
+</style>
+<section class="section">
+  <div class="container">
+    <div class="columns is-mobile is-centered">
+      <div class="column is-half">
+        {% if postdetail.image %}
+<!-- image post -->
+        <div class="card" style="margin-bottom: 5rem">
+          <div class="card-image">
+            <figure class="image is-4by3">
+              <img src="{{ postdetail.image.url }}" alt="" />
+            </figure>
+          </div>
+          <div class="card-content">
+            <a href="{% url 'profiles' postdetail.owner.id %}">
+              <div class="media">
+                <div class="media-left">
+                  <figure class="image is-48x48">
+                    <img class="is-rounded" src="{{postdetail.owner.profile_image.url}}" alt="Placeholder image" />
+                  </figure>
+                </div>
+            </a>
+            <a href="{% url 'profiles' postdetail.owner.id %}">
+              <div class="media-content">
+                <p class="title is-4">{{ postdetail.owner.name }}</p>
+                <p class="subtitle is-6">@{{ postdetail.owner.username }}</p>
+              </div>
+          </div></a>
+
+          <div class="content">
+            {{ postdetail.caption }}
+            <br />
+            <hr>
+            <time datetime="2016-1-1">{{ postdetail.posted }}</time>
+          </div>
+
+<!-- like fav delete section -->
+          <nav class="level-right">
+            <div class="level-right">
+              <div class="level-item">
+                {{ postdetail.likes.all.count }} Like
+              </div>
+
+              <a class="level-item">
+                <form action="{% url 'like_post' postdetail.id %}" method='POST'>
+                  {% csrf_token %}
+                  <button class="button is-right" , type="submit" , name="post_id" , value="{{ postdetail.id }}">
+                    <span class="icon is-small">
+                      <i class="fas fa-heart"></i>
+                    </span>
+                  </button>
+                </form>
+              </a>
+              <div class="level-item">
+                {{ postdetail.favorites.all.count }} Fav
+              </div>
+
+              <a href = "{% url 'addtofavorites' postdetail.id %}" class="level-item">
+                
+                  
+                  <button class="button is-right" >
+                    <span class="icon is-small">
+                      <i class="fas fa-star"></i>
+                    </span>
+                  </button>
+                
+              </a>
+
+              <div class="level-item">
+                {% if profile.id == postdetail.owner.id %}
+                <a href="{% url 'delete' postdetail.id %}"><button
+                    class="button is-danger is-pulled-right is-light is-normal is-outlined">Delete</button></a>
+                {% endif %}
+              </div>
+            </div>
+          </nav>
+<!-- comment section -->
+          <br>
+          <hr>
+         {% if not postdetail.comments.all %}
+         No comments yet...
+         <br>
+         <br>
+         {% else %}
+         {% for comment in postdetail.comments.all %}
+        <a href="{% url 'profiles' comment.owner.id %}">
+        <article class="media">
+          <figure class="media-left">
+            <p class="image is-64x64">
+              <img src="{{ comment.owner.profile_image.url }}">
+            </p>
+          </figure>
+        
+          <div class="media-content">
+            <div class="content">
+              <p>
+                <strong>@{{ comment.owner.username }}</strong>
+              </a>
+                <br>
+                <br>
+                {{ comment.body }}
+                <br>
+              </p>
+            </div>
+            <nav class="level">
+            <div class="level-right">
+              <div class="level-item">
+                <small>{{ comment.posted }}</small>
+              </div>
+            </div>
+            </nav>
+        </article>
+        {% endfor %}
+        {% endif %}
+        <article class="media">
+          <figure class="media-left">
+            <p class="image is-64x64">
+              <img src="{{request.user.profile.profile_image.url}}">
+            </p>
+          </figure>
+          <div class="media-content">
+            <form method="POST" action="" role="form">
+              {% csrf_token %}
+            <div class="field">
+              <p class="control">
+                <div>
+                  {{form.body}}
+                </div>
+              </p>
+            </div>
+            <div class="field">
+              <p class="control">
+                <button type ="submit" name="action" class="button">Post comment</button>
+              </p>
+            </div>
+          </form>
+          </div>
+        </article>
+         
+        </div>
+      </div>
+
+
+      {% else %}
+<!-- status post -->
+      <div class="card" style="margin-bottom: 5rem">
+        <div class="card-content">
+          <a href="{% url 'profiles' postdetail.owner.id %}">
+            <div class="media">
+              <div class="media-left">
+                <figure class="image is-48x48">
+                  <img class="is-rounded" src="{{postdetail.owner.profile_image.url}}" alt="Placeholder image" />
+                </figure>
+              </div>
+          </a>
+          <div class="media-content">
+            <a href="{% url 'profiles' postdetail.owner.id %}">
+              <p class="title is-4">{{ postdetail.owner.name }}</p>
+              <p class="subtitle is-6">@{{ postdetail.owner.username }}</p>
+            </a>
+          </div>
+        </div>
+
+        <div class="media-content">
+          {{ postdetail.caption }}
+          <br />
+          <hr>
+          <time datetime="2016-1-1">{{ postdetail.posted }}</time>
+        </div>
+<!-- like and delete section -->
+        <nav class="level-right">
+          <div class="level-right">
+            <div class="level-item">
+              {{ postdetail.likes.all.count }} like
+            </div>
+            <a class="level-item">
+              <form action="{% url 'like_post' postdetail.id %}" method='POST'>
+                {% csrf_token %}
+                <button class="button is-right" , type="submit" , name="post_id" , value="{{ postdetail.id }}">
+                  <span class="icon is-small">
+                    <i class="fas fa-heart"></i>
+                  </span>
+                </button>
+              </form>
+            </a>
+
+            <div class="level-item">
+              {% if profile.id == postdetail.owner.id %}
+              <a href="{% url 'delete' postdetail.id %}"><button
+                  class="button is-danger is-pulled-right is-light is-normal is-outlined">Delete</button></a>
+              {% endif %}
+            </div>
+          </div>
+        </nav>
+
+<!-- comment section -->
+<br>
+<hr>
+{% if not postdetail.comments.all %}
+No comments yet...
+<br>
+<br>
+{% else %}
+{% for comment in postdetail.comments.all %}
+<a href="{% url 'profiles' comment.owner.id %}">
+<article class="media">
+<figure class="media-left">
+  <p class="image is-64x64">
+    <img src="{{ comment.owner.profile_image.url }}">
+  </p>
+</figure>
+<div class="media-content">
+  <div class="content">
+    <p>
+      <strong>@{{ comment.owner.username }}</strong>
+    </a>
+      <br>
+      <br>
+      {{ comment.body }}
+      <br>
+    </p>
+  </div>
+  <nav class="level">
+  <div class="level-right">
+    <div class="level-item">
+      <small>{{ comment.posted }}</small>
+    </div>
+  </div>
+  </nav>
+</article>
+{% endfor %}
+{% endif %}
+<article class="media">
+<figure class="media-left">
+  <p class="image is-64x64">
+    <img src="{{request.user.profile.profile_image.url}}">
+  </p>
+</figure>
+<div class="media-content">
+  <form method="POST" action="" role="form">
+    {% csrf_token %}
+  <div class="field">
+    <p class="control">
+      <div>
+        {{form.body}}
+      </div>
+    </p>
+  </div>
+  <div class="field">
+    <p class="control">
+      <button type ="submit" name="action" class="button">Post comment</button>
+    </p>
+  </div>
+</form>
+</div>
+</article>
+         
+
+      </div>
+    </div>
+    {% endif %}
+  </div>
+  </div>
+  </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% load static %}
+
+    {% block content %}
+    
+    <style>
+        html,body {
+            background-color: rgb(228, 238, 253) !important;
+            
+        }
+          </style>
+        <section class="section">
+            <div class="container">
+
+                <div class="columns is-mobile is-centered">
+                    <div class="column is-half">
+                        {% for posts in posts %}
+                            {% if posts.image %}
+                                <div class="card" style="margin-bottom: 5rem">
+                                    <div class="card-image">
+                                        <figure class="image is-4by3">
+        
+                                            <a href="{% url 'postdetails' posts.id %}"><img src="{{ posts.image.url }}" alt=""></a>
+                                        </figure>
+                                    </div>
+                                    <div class="card-content">
+                                        <a href="{% url 'profiles' posts.owner.id %}" ><div class="media">
+                                            <div class="media-left">
+                                                <figure class="image is-48x48">
+                                                    <img class="is-rounded" src="{{posts.owner.profile_image.url}}"
+                                                         alt="Placeholder image">
+                                                </figure>
+                                            </div>
+                                            <div class="media-content">
+                                                <p class="title is-4">{{ posts.owner.name }}</p>
+                                                <p class="subtitle is-6">@{{ posts.owner.username }}</p>
+                                            </div>
+                                        </div></a>
+                                        <div class="content">
+                                            {{ posts.caption }}
+                                            <br>
+                                            <hr>
+                                            <time datetime="2016-1-1">{{ posts.posted }}</time>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            {% else %}
+                            <div class="card" style="margin-bottom: 5rem">
+                                    <div class="card-content">
+                                        <div class="media">
+                                            <div class="media-left">
+                                                <a href="{% url 'profiles' posts.owner.id %}" ><figure class="image is-48x48">
+                                                    <img class="is-rounded" src="{{posts.owner.profile_image.url}}"
+                                                         alt="Placeholder image">
+                                                </figure></a>
+                                            </div>
+                                            <div class="media-content">
+                                                <a href="{% url 'profiles' posts.owner.id %}" ><p class="title is-4">{{ posts.owner.name }}</p>
+                                                <p class="subtitle is-6">@{{ posts.owner.username }}</p></a>
+                                            </div>
+                                        </div>
+        
+                                        <a href="{% url 'postdetails' posts.id %}"><div class="content">
+                                            {{ posts.caption }}
+                                            <br>
+                                            <hr>
+                                            <time datetime="2016-1-1">{{ posts.posted }}</time>
+                                        </div></a>
+                                    </div>
+                                </div>
+                            {% endif %}
+
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        {% endblock %}
+        
+
