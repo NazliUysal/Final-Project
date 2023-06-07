@@ -8,7 +8,7 @@ html,body {
 .btn {
             background-color: #9286fc ;
             color: white;}
-    </style>
+</style>
 
     <section>
       <div class="container py-5">
@@ -41,10 +41,11 @@ html,body {
                 </div>
                   <hr>
                 
-                <div class="d-flex justify-content-center mb-2">
+                
                   
-                    <a href="" type="button" class="btn mb-2 btn-block">Edit Profile</a>
-                </div>
+                    <a href="{% url 'edit-account' %}" type="button" class="btn mb-2 btn-block">Edit Profile</a>
+                    <a href="{% url 'edit-account' %}" type="button" class="btn mb-2 btn-block">Change Password</a>
+                
                 
               </div>
             </div>

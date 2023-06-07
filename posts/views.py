@@ -15,7 +15,7 @@ def timeline(request):
     posts = Post.objects.filter(owner__followed_by__in=[user.id]).order_by("-posted")
     return render(request, "posts/timeline.html", {'user': user, 'posts': posts})
 
-
+@login_required(login_url="login")
 def post_details(request, pk):
     profile=request.user.profile
     postdetail = Post.objects.get(id=pk)

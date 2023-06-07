@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.models import User
 from .models import Profile
-from .forms import CustomUserCreationForm
+from .forms import CustomUserCreationForm, ProfileForm
 from .utils import searchProfiles
 from posts.models import Post
 
@@ -100,6 +100,21 @@ def useraccount(request):
     posts_without_images = profile.post_set.filter(image__exact='')
     context = {'profile': profile, 'posts_with_images': posts_with_images, 'posts_without_images': posts_without_images}
     return render(request, 'users/account.html', context)
+
+
+@login_required(login_url="login")
+def editaccount(request):
+    profile = request.user.profile
+    form = ProfileForm(instance=profile)
+
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            form.save()
+            return redirect('account')
+        
+    context = {'form': form}
+    return render(request, 'users/profile_form.html', context)
 
 
 def userlist(request):

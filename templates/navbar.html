@@ -6,15 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/navbar.css' %}"/>
+    <a href="https://www.flaticon.com/free-icons/art" title="art icons"></a>
+    
   </head>
   <body>
-
-
+    <style>
+      .fa-paintbrush-fine{
+    color:rgb(255, 255, 255);
+}
+      
+    </style>
       <nav>
-        <div class="topnav navbar-expand-sm" >
-            <h2>Paintbrush</h2>
-            <a href="{% url 'timeline' %}" style="color: azure; text-decoration: none;">Home</a>
-            <a href="{% url 'userlist' %}" style="color: azure; text-decoration: none;">Users</a>
+        <div class="topnav" >
+            <h3><a href="{% url 'home' %}"><img src="/media/art.png" alt="img"></img> Paintbrush</h3></a> 
+            <a href="{% url 'timeline' %}" >Home</a>
+            <a href="{% url 'userlist' %}" >Users</a>
             <div class="search-container">
               <form class ="form" action= "{% url 'userlist' %}" method ="GET">
                 <div class = "form_field">
@@ -25,16 +31,16 @@
             </div>
             
             {% if request.user.is_authenticated %}
-            <a href="{% url 'upload' %}" style="color: azure; text-decoration: none;">Upload</a>
-            <a href="{% url 'favoritelist' %}" style="color: azure; text-decoration: none;">Favorites</a>
-            <a href="" style="color: azure; text-decoration: none;">Messages</a>
-            <a href="{% url 'account' %}" style="color: azure; text-decoration: none;">Account</a>
+            <a href="{% url 'upload' %}" >Upload</a>
+            <a href="{% url 'favoritelist' %}" >Favorites</a>
+            <a href="" >Messages</a>
+            <a href="{% url 'account' %}" >Account</a>
             {% endif %}
 
             {% if request.user.is_authenticated %}
-             <a href="{% url 'logout' %}" style="color: azure; text-decoration: none;">Logout</a>
+             <a href="{% url 'logout' %}" >Logout</a>
             {% else %}
-            <a href="{% url 'login' %}" style="color: azure; text-decoration: none;">Login/Register</a>
+            <a href="{% url 'login' %}" >Login/Register</a>
             {% endif %}
 
         </div>
@@ -42,5 +48,6 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/54f57c121d.js" crossorigin="anonymous"></script>
 </body>
 </html>

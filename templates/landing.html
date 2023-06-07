@@ -2,5 +2,38 @@
 {% load static %}
 
 {% block content %}
-Hello
+<link rel="stylesheet" href="{% static 'css/landing.css' %}" />
+
+<style>
+html, body { background: rgb(228, 238, 253) !important;}
+.card{
+    background-color: rgb(255, 255, 255);
+}
+.btn {
+    background-color: #9286fc;
+    color: white;
+}
+</style>
+
+
+<div class="container">
+    <div class="col-12" style="margin-top: 7vh;">
+        <div class="card" style="height: 77vh; width: 400vw;">
+            <div class="card-body">
+                <div class="card-title" style="margin-left: 3vw; margin-top: 22vh; font-size: 47px;">
+                    <strong>Welcome to Paintbrush</strong>
+                </div>
+                   <br>
+                <div class="card-text" style="margin-left: 3vw; font-size: 18px;">
+                    <p>Discover new artists and share your art with the world</p>
+                </div>
+                <div style="margin-top: 40px; margin-left: 210px;">
+                    <a href="{% url 'register' %}" class="btn mb-2">Sign up!</a>
+                    <a href="{% url 'login' %}" class="btn mb-2">Log in!</a>
+                </div>
+                <img class= "img" src="/media/artist.png" alt="artist" style="margin-top: -40vh; margin-left: 45vw; height: 45vh; width: 35vw;">
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock content %}

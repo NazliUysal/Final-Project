@@ -9,7 +9,7 @@
 }
 
 .topnav{
-    height: 6vh;
+    height: 7vh;
     width: 100%;
     background-color: #1e1f26;
     color: azure;
@@ -18,14 +18,14 @@
     flex-direction: row;
     justify-content: space-around;
 }
-/* a{
+.topnav a{
     text-decoration: none;
     color: azure;
     transition: 0.8s;
 }
-a:hover{
-    color:rgb(236, 137, 245);
-} */
+.topnav a:hover{
+    color:rgb(159, 119, 253);
+}
 
 .topnav input[type=text] {
     padding: 6px;
@@ -43,4 +43,8 @@ a:hover{
   text-decoration: none;
   margin: 4px 2px;
   cursor: pointer;
+}
+
+.fa-paintbrush-fine{
+    color:rgb(255, 255, 255);
 }

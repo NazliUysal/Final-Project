@@ -6,12 +6,12 @@
     <style>
         html,body {
             background-color: rgb(228, 238, 253) !important;
-            
+
         }
+        
           </style>
         <section class="section">
             <div class="container">
-
                 <div class="columns is-mobile is-centered">
                     <div class="column is-half">
                         {% for posts in posts %}
@@ -74,6 +74,13 @@
                         {% endfor %}
                     </div>
                 </div>
+                {% if not posts %}
+                <div class="row justify-content-center">
+                    <div class="card p-5" style="margin-top: 30px;">
+                    <p>No posts yet, post something or <a href="{% url 'userlist' %}" style="color:blueviolet">follow someone!</a></p>
+                    </div>
+                </div>
+                {% endif %}
             </div>
         </section>
 
