@@ -1,3 +1,6 @@
+<head>
+    <title>Paintbrush</title>
+</head>
 {% extends 'base.html' %}
 {% load static %}
 
@@ -29,9 +32,14 @@ html, body { background-image: url('/media/pattern4.png');}
                     <p>Discover new artists and share your art with the world</p>
                 </div>
                 <div style="margin-top: 40px; margin-left: 210px;">
+                {% if request.user.is_authenticated %}
+                    <a href="{% url 'userlist' %}" class="btn mb-2">Discover!</a>
+                    <a href="{% url 'timeline' %}" class="btn mb-2">Your timeline!</a>
+                {% else %}
                     <a href="{% url 'register' %}" class="btn mb-2">Sign up!</a>
                     <a href="{% url 'login' %}" class="btn mb-2">Log in!</a>
-                </div>
+                {% endif %}
+            </div>
                 <img class= "img" src="/media/artist.png" alt="artist" style="margin-top: -40vh; margin-left: 670px; height: 45vh; width: 35vw;">
             </div>
         </div>

@@ -20,6 +20,11 @@ def post_details(request, pk):
     profile=request.user.profile
     postdetail = Post.objects.get(id=pk)
 
+    # post = profile.post_set.get(id=pk)
+    if request.method == 'POST' and 'deletepost' in request.POST:
+        postdetail.delete()
+        return redirect('timeline')
+
     form = CommentForm()
     
     if request.method == 'POST':
@@ -51,15 +56,15 @@ def upload(request):
     return render(request, 'posts/upload.html', context)
 
 
-@login_required(login_url="login")
-def deletePost(request, pk):
-    profile=request.user.profile
-    post = profile.post_set.get(id=pk)
-    if request.method == 'POST':
-        post.delete()
-        return redirect('timeline')
-    context={'post':post}
-    return render(request, 'posts/delete.html', context)
+# @login_required(login_url="login")
+# def deletePost(request, pk):
+#     profile=request.user.profile
+#     post = profile.post_set.get(id=pk)
+#     if request.method == 'POST':
+#         post.delete()
+#         return redirect('timeline')
+#     context={'post':post}
+#     return render(request, 'posts/timeline.html', context)
 
 
 @login_required(login_url="login")

@@ -25,7 +25,7 @@
               <form class ="form" action= "{% url 'userlist' %}" method ="GET">
                 <div class = "form_field">
                   <input type="text" placeholder="Search for users..." name="search_query" value="{{search_query}}"/>
-                  <input type="submit" value="Search" class="btn"/>
+                  <input type="submit" value="Search" class="btn btn-sm"/>
                 </div>
               </form>
             </div>
@@ -34,7 +34,7 @@
             <a href="{% url 'upload' %}" >Upload</a>
             <a href="{% url 'favoritelist' %}" >Favorites</a>
             <a href="" >Messages</a>
-            <a href="{% url 'account' %}" >Account</a>
+            <a href="{% url 'account' %}" style="color: #b2aaff" >{{request.user.username}}</a>
             {% endif %}
 
             {% if request.user.is_authenticated %}
