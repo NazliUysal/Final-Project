@@ -13,10 +13,9 @@ html, body { background-image: url('/media/pattern4.png');}
 
 <div class="container">
     <div class="row justify-content-center">
-        <div class="card p-5" style="margin-top: 100px; margin-bottom: 100px;">
-            <form action="{% url 'edit-account' %}" method="POST" enctype="multipart/form-data">
+        <div class="card p-5" style="margin-top: 70px; margin-bottom: 100px;">
+            <form id = "editaccount" action="{% url 'edit-account' %}" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
-                
                 <div class="form-group">
                     <h3 class='text-center'>Edit Profile</h3>
                     <br>
@@ -33,6 +32,8 @@ html, body { background-image: url('/media/pattern4.png');}
                 </div>
                 <br>
                 <button type="submit" class="btn mb-2 btn-block" value="Submit">Save</button>
+
+                <p class="text-center"><a href="{% url 'change-password' %}">Change password here</a></p>
             </form>
         </div>
     </div>
