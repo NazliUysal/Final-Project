@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     
     'posts.apps.PostsConfig',
     'users.apps.UsersConfig',
+    'directmessages.apps.DirectmessagesConfig',
+    
 ]
 
 MIDDLEWARE = [

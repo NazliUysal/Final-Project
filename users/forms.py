@@ -2,6 +2,7 @@ from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from .models import Profile
+from django import forms
 
 class CustomUserCreationForm(UserCreationForm):
     class Meta:
@@ -15,3 +16,9 @@ class ProfileForm(ModelForm):
     class Meta:
         model = Profile
         fields = ['name', 'bio', 'profile_image']
+
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control'}),
+            'bio': forms.Textarea(attrs={'class': 'form-control'}),
+            'profile_image': forms.FileInput(attrs={'class': 'form-control-file'}),
+        }
