@@ -117,8 +117,6 @@ def editaccount(request):
     return render(request, 'users/profile_form.html', context)
 
 
-
-
 def userlist(request):
     userprofiles, search_query = searchProfiles(request)
     # userprofiles = Profile.objects.all().order_by("created")
@@ -142,3 +140,13 @@ def addtofavorites(request, pk):
 def favoritelist(request):
     favorite_posts = Post.objects.filter(favorites=request.user)
     return render(request, 'users/favorites.html', {'favorite_posts': favorite_posts})
+
+@login_required(login_url="login")
+def followlist(request):
+    profile = request.user.profile
+    return render(request, "users/following.html", {'profile': profile})
+
+@login_required(login_url="login")
+def followerlist(request):
+    profile = request.user.profile
+    return render(request, "users/follower.html", {'profile': profile})

@@ -11,13 +11,15 @@ html, body { background-color: rgb(228, 238, 253) !important;}
     background-color: #9286fc ;
     color: white;
 }
-
+.fa-arrow-left{
+    color: #9286fc
+}
 </style>
 
 <div class="container">
     <div class ="card col-12 p-5 mt-6">
     <div class ="row justify-content-center">
-        
+        <a class= "fas fa-arrow-left" href="{% url 'inbox' %}" style="margin-left:-30px; margin-top:-30px;"></a>
         <div class ="col-md-12 p-5">
             <h3> Send a message </h3>
         </div>

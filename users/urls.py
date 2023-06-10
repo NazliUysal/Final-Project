@@ -15,4 +15,6 @@ urlpatterns = [
     path('account/edit-profile/', views.editaccount, name="edit-account"),
     path('favorites/<str:pk>', views.addtofavorites, name="addtofavorites"),
     path('account/favoritelist/', views.favoritelist, name="favoritelist"),
+    path('account/following/', views.followlist, name="following"),
+    path('account/followers/', views.followerlist, name="followers"),
 ]

@@ -33,14 +33,14 @@ html,body {
                 <hr>
                 <div class="d-flex justify-content-start rounded-3 p-2 mb-2"
                   style="background-color: #efefef;">
-                  <div class="col border-right">
+                  <a href="{% url 'followers' %}"><div class="col border-right">
                     <p class="text-muted mb-1 ">Followers</p>
                     <p class="mb-0">{{profile.followed_by.count}}</p>
-                  </div>
-                  <div class="col">
+                  </div></a>
+                  <a href="{% url 'following' %}"><div class="col">
                     <p class="text-muted mb-1">Following</p>
                     <p class="mb-0">{{profile.follows.count}}</p>
-                  </div>
+                  </div></a>
                 </div>
                   <hr>
                 

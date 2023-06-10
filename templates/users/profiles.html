@@ -35,18 +35,19 @@
                   </div>
                 </div>
                   <hr>
-                
+                  {% if request.user.is_authenticated %}
                 <div class="d-flex justify-content-center mb-2">
                   <form method="POST">
                     {% csrf_token %}
                     {% if profiles in user.profile.follows.all %}
-                  <button type="submit" class="btn btn-danger" style="margin-right: 5px;" value="unfollow" name="action">Unfollow</button>
+                    <button type="submit" class="btn btn-danger" style="margin-right: 5px;" value="unfollow" name="action">Unfollow</button>
                   {% else %}
                   <button type="submit" class="btn btn-primary" style="margin-right: 5px;" value="follow" name="action">Follow</button>
                   {% endif %}
                 </form>
                 <a href="{% url 'create-thread' %}" class="btn btn-primary" style="margin-right: 5px;" value="message">Message</a>
                 </div>
+                {% endif %}
                 
               </div>
             </div>

@@ -9,18 +9,17 @@ from django.db.models import Q
 from .forms import ThreadForm, MessageForm
 
 # Create your views here.
-
+@login_required(login_url="login")
 def listThreads(request):
-    if request.method == 'GET':
-     threads = ThreadModel.objects.filter(Q(user = request.user.profile) | Q(receiver = request.user.profile))
+   threads = ThreadModel.objects.filter(Q(user = request.user.profile) | Q(receiver = request.user.profile))
 
-     context = {
+   context = {
         'threads': threads
      }
 
-    return render(request, 'directmessages/inbox.html', context)
+   return render(request, 'directmessages/inbox.html', context)
 
-
+@login_required(login_url="login")
 def createThread(request):
    if request.method == 'GET':
       form = ThreadForm()
@@ -32,6 +31,7 @@ def createThread(request):
    if request.method == 'POST':
       form = ThreadForm(request.POST)
       username = request.POST.get('username')
+      
 
       try:
          receiver = Profile.objects.get(username=username)
@@ -48,19 +48,24 @@ def createThread(request):
             return redirect('thread', pk=thread.pk)
       except:
          return redirect('create-thread')
-      
-def thread(request, pk):
-   if request.method == 'GET':
-      form = MessageForm()
-      thread = ThreadModel.objects.get(pk=pk)
-      message_list = MessageModel.objects.filter(thread__pk__contains=pk)
 
-      context = {
+@login_required(login_url="login")     
+def thread(request, pk):
+   form = MessageForm()
+   thread = ThreadModel.objects.get(pk=pk)
+   message_list = MessageModel.objects.filter(thread__pk__contains=pk)
+
+
+   if request.method == 'POST' and 'deletethread' in request.POST:
+        thread.delete()
+        return redirect('inbox')
+
+   context = {
         'form': form,
         'thread': thread,
         'message_list': message_list
      }
-      return render(request, 'directmessages/thread.html', context)
+   return render(request, 'directmessages/thread.html', context)
    
 def createMessage(request, pk):
    if request.method == 'POST':
