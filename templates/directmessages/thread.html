@@ -1,0 +1,87 @@
+<head>
+    <title>Inbox / Paintbrush</title>
+</head>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    html, body { background-image: url('/media/pattern4.png');}
+
+    .btn {
+        background-color: #9286fc;
+        color: white;
+    }
+
+    .empty-text {
+        text-align: center;
+    }
+
+    .sent-message {
+        background-color: rgb(236, 224, 252);
+        border-radius: 20px;
+        padding: 10px 10px;
+        width: 25%;
+    }
+
+    .received-message {
+        background-color: rgb(216, 188, 252);
+        border-radius: 20px;
+        padding: 10px 10px;
+        width: 25%;
+        float: right;
+    }
+</style>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="card col-9 p-5 mt-6 mb-6">
+            {% if thread.receiver == request.user.profile %}
+                 <h5>@{{thread.user}}</h5>
+            {% else %}
+                 <h5>@{{thread.receiver}}</h5>
+            {% endif %}
+            <hr>
+
+            {% if message_list.all.count == 0 %}
+            <div class="row justify-content-center">
+                <div class="col-9">
+                    <p class="empty-text">No Messages</p>
+                </div>
+            </div>
+            {% endif %}
+
+
+            {% for message in message_list %}
+            <div class="row">
+                <div class="col-md-12 my-1">
+                    {% if message.receiver_user == request.user.profile %}
+                    <div class="sent-message my-3">
+                        <p>{{message.body}}</p>
+                    </div>
+                    {% elif message.sender_user == request.user.profile %}
+                    <div class="received-message my-3">
+                        <p>{{message.body}}</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+            <hr>
+            <br>
+            <div class="row">
+
+                <form method="POST" action="{% url 'create-message' thread.pk %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group" style="width: 60vw;">
+                        <input type="text" name="message" class="form-control" id="id_message" maxlength="1000" placeholder="Enter message">
+                    </div>
+                    <button class="btn mb-2 btn-block" type="submit">Send</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+
+    {% endblock content %}
