@@ -119,7 +119,6 @@ def editaccount(request):
 
 def userlist(request):
     userprofiles, search_query = searchProfiles(request)
-    # userprofiles = Profile.objects.all().order_by("created")
     return render(request, "users/userlist.html", {'userprofiles': userprofiles, 'search_query': search_query})
 
 
@@ -128,7 +127,7 @@ def addtofavorites(request, pk):
     posts = get_object_or_404(Post, id=pk)
     if posts.favorites.filter(id=request.user.id):
         posts.favorites.remove(request.user)
-        messages.success(request, 'Removed from favorites.')
+        messages.error(request, 'Removed from favorites.')
     else: 
         posts.favorites.add(request.user)
         messages.success(request, 'Added to favorites.')

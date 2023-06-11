@@ -26,14 +26,21 @@ html, body { background-color: rgb(228, 238, 253) !important;}
     {% for thread in threads.all %}
     <div class ="row mb-3">
         <div class ="card col-md-12 p-5 shadow-sm">
-            <h5> Sender: {{thread.user}} </h5> 
+            <h5 style="color:#9286fc;"> Sender: {{thread.user}} </h5> 
             <h5> Receiver: {{thread.receiver}} </h5>
             <a class="stretched-link" href="{% url 'thread' thread.pk %}"></a>
         </div>
     </div>
     
     {% endfor %}
-
+    
+    {% if not threads %}
+    <div class="row">
+        <div class="card p-5" style="margin-top: 30px;">
+            <p>No conversations yet, message someone!</p>
+        </div>
+    </div>
+    {% endif %}
 
 
 

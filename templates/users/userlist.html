@@ -19,7 +19,11 @@
             <div class="card" style="margin-top:30px; margin-bottom:30px;">
                     <div class="card-body">
                       <h5 class="card-title">{{userprofile.name}}
+                        {% if userprofile.id == request.user.profile.id %}
+                        <a href="{% url 'account' %}" class="btn float-right">My profile</a>
+                        {% else %}
                         <a href="{% url 'profiles' userprofile.id %}" class="btn float-right">See profile</a>
+                        {% endif %}
                       </h5>
                       <h6 class="card-subtitle mb-2 text-muted">@{{userprofile.username}}</h6>
                       <br>

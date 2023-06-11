@@ -32,6 +32,22 @@
             </figure>
           </div>
           <div class="card-content">
+            {% if postdetail.owner.id == request.user.profile.id %}
+            <a href="{% url 'account' %}">
+              <div class="media">
+                <div class="media-left">
+                  <figure class="image is-48x48">
+                    <img class="is-rounded" src="{{postdetail.owner.profile_image.url}}" alt="Placeholder image" />
+                  </figure>
+                </div>
+            </a>
+            <a href="{% url 'profiles' postdetail.owner.id %}">
+              <div class="media-content">
+                <p class="title is-4">{{ postdetail.owner.name }}</p>
+                <p class="subtitle is-6">@{{ postdetail.owner.username }}</p>
+              </div>
+          </div></a>
+          {% else %}
             <a href="{% url 'profiles' postdetail.owner.id %}">
               <div class="media">
                 <div class="media-left">
@@ -46,7 +62,7 @@
                 <p class="subtitle is-6">@{{ postdetail.owner.username }}</p>
               </div>
           </div></a>
-
+        {% endif %}
           <div class="content">
             {{ postdetail.caption }}
             <br />
@@ -91,7 +107,7 @@
                 <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">
                   Delete
                 </button>
-                
+
                 {% endif %}
               </div>
 
@@ -110,6 +126,21 @@
           <br>
           {% else %}
           {% for comment in postdetail.comments.all %}
+          {% if comment.owner.id == request.user.profile.id %}
+          <a href="{% url 'account' %}">
+            <article class="media">
+              <figure class="media-left">
+                <p class="image is-64x64">
+                  <img class="is-rounded" src="{{ comment.owner.profile_image.url }}">
+                </p>
+              </figure>
+
+              <div class="media-content">
+                <div class="content">
+                  <p>
+                    <strong>@{{ comment.owner.username }}</strong>
+          </a>
+          {% else %}
           <a href="{% url 'profiles' comment.owner.id %}">
             <article class="media">
               <figure class="media-left">
@@ -123,6 +154,7 @@
                   <p>
                     <strong>@{{ comment.owner.username }}</strong>
           </a>
+          {% endif %}
           <br>
           <br>
           {{ comment.body }}
@@ -213,10 +245,10 @@
 
           <div class="level-item">
             {% if profile.id == postdetail.owner.id %}
-            
-                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">
-                  Delete
-                </button>
+
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">
+              Delete
+            </button>
             {% endif %}
           </div>
         </div>
@@ -293,32 +325,32 @@
   </div>
 
 
-  <div class="container" >
-  
-  
+  <div class="container">
+
+
     <!-- The Modal -->
     <div class="modal fade" id="myModal" style="margin-top:30vh;">
       <div class="modal-dialog modal-sm">
         <div class="modal-content">
-        
-          
+
+
           <!-- Modal body -->
-          <form method="POST" >
+          <form method="POST">
             {% csrf_token %}
-              <div class="modal-body">
-                  <p>Delete Post?</p>
-              </div>
-          
-          <!-- Modal footer -->
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-danger" name="deletepost">Delete</button>
-          </div>
-        </form>
+            <div class="modal-body">
+              <p>Delete Post?</p>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-danger" name="deletepost">Delete</button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
-    
+
   </div>
 
 

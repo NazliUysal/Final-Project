@@ -40,7 +40,7 @@
     <div class="row justify-content-center">
         <div class="card col-9 p-5 mt-6 mb-6">
             <a class= "fas fa-arrow-left" href="{% url 'inbox' %}" style="margin-left:-30px; margin-top:-30px;"></a>
-            <a class= "fa-solid fa-xmark" data-toggle="modal" data-target="#myModal" style="margin-left:48vw; margin-top:-15px; color: #9286fc;"></a>
+            <a class= "fa-solid fa-xmark" data-toggle="modal" data-target="#myModal" style="margin-left:100%; margin-top:-15px; color: #9286fc;"></a>
             {% if thread.receiver == request.user.profile %}
                  <h5>@{{thread.user}}</h5>
             {% else %}

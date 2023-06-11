@@ -27,6 +27,30 @@
                                         </figure>
                                     </div>
                                     <div class="card-content">
+                                        {% if posts.owner.id == request.user.profile.id %}
+
+                                        <a href="{% url 'account' %}" ><div class="media">
+                                            <div class="media-left">
+                                                <figure class="image is-48x48">
+                                                    <img class="is-rounded" src="{{posts.owner.profile_image.url}}"
+                                                         alt="Placeholder image">
+                                                </figure>
+                                            </div>
+                                            <div class="media-content">
+                                                <p class="title is-4">{{ posts.owner.name }}</p>
+                                                <p class="subtitle is-6">@{{ posts.owner.username }}</p>
+                                            </div>
+                                        </div></a>
+                                        <br>
+                                        <div class="content">
+                                            {{ posts.caption }}
+                                            <br>
+                                            <hr>
+                                            <time datetime="2016-1-1">{{ posts.posted }}</time>
+                                        </div>
+                                        
+                                    </div>
+                                        {% else %}
                                         <a href="{% url 'profiles' posts.owner.id %}" ><div class="media">
                                             <div class="media-left">
                                                 <figure class="image is-48x48">
@@ -39,6 +63,7 @@
                                                 <p class="subtitle is-6">@{{ posts.owner.username }}</p>
                                             </div>
                                         </div></a>
+                                        <br>
                                         <div class="content">
                                             {{ posts.caption }}
                                             <br>
@@ -47,10 +72,36 @@
                                         </div>
                                         
                                     </div>
+                                    {% endif %}
                                 </div>
                             {% else %}
                             <div class="card" style="margin-bottom: 5rem">
                                     <div class="card-content">
+                                        {% if posts.owner.id == request.user.profile.id %}
+                                        <div class="media">
+                                            <div class="media-left">
+                                                <a href="{% url 'account' %}" ><figure class="image is-48x48">
+                                                    <img class="is-rounded" src="{{posts.owner.profile_image.url}}"
+                                                         alt="Placeholder image">
+                                                </figure></a>
+                                            </div>
+                                            <div class="media-content">
+                                                <a href="{% url 'account' %}" ><p class="title is-4">{{ posts.owner.name }}</p>
+                                                <p class="subtitle is-6">@{{ posts.owner.username }}</p></a>
+                                            </div>
+                                        </div>
+        
+                                        <a href="{% url 'postdetails' posts.id %}"><div class="content">
+                                            {{ posts.caption }}
+                                            <br>
+                                            <hr>
+                                            <time datetime="2016-1-1">{{ posts.posted }}</time>
+                                        </div></a>
+                                        {% else %}
+
+
+
+
                                         <div class="media">
                                             <div class="media-left">
                                                 <a href="{% url 'profiles' posts.owner.id %}" ><figure class="image is-48x48">
@@ -70,6 +121,10 @@
                                             <hr>
                                             <time datetime="2016-1-1">{{ posts.posted }}</time>
                                         </div></a>
+
+
+                                        {% endif %}
+
                                     </div>
                                 </div>
                             {% endif %}

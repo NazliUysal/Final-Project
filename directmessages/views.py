@@ -3,6 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.urls import reverse
+from django.contrib import messages
 from .models import ThreadModel, MessageModel
 from users.models import Profile
 from django.db.models import Q
@@ -47,6 +48,7 @@ def createThread(request):
 
             return redirect('thread', pk=thread.pk)
       except:
+         messages.error(request, 'Invalid username.')
          return redirect('create-thread')
 
 @login_required(login_url="login")     

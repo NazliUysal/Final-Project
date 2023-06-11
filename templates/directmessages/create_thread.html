@@ -28,7 +28,6 @@ html, body { background-color: rgb(228, 238, 253) !important;}
         <div class ="col p-5">
             <form method="POST">
                 {% csrf_token %}
-                
                 <div class="form-group">
                     <p>Enter the user you want to send message to:</p>
                     <input type="text" name="username" class="form-control" required id="id_username" maxlength="100" placeholder="Enter name" style="width:27vw;">
